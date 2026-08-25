@@ -1,0 +1,33 @@
+https://docs.docker.com/desktop/install/windows-install/
+
+https://docker-curriculum.com/
+docker run hello-world
+
+--------------------
+docker pull macio232/hadoop-pseudo-distributed-mode
+docker run -p 9870:9870 -p 8088:8088 -it --name=myHadoop macio232/hadoop-pseudo-distributed-mode
+--------------------
+docker container start -i  myHadoop 
+docker stop myHadoop
+
+----------
+hdfs dfs -ls /
+hdfs dfs -mkdir /asif
+
+hdfs dfs -put /home/hadoop/student.txt /asif/student.txt
+--------------------
+hive
+show databases;
+create database asiftest;
+use asiftest;
+show tables
+
+
+--------------------
+Create table student (Name string, Roll int)
+Row format delimited 
+Fields terminated by '\t';
+--------------------
+
+
+LOAD DATA INPATH '/asif/student.txt' INTO table student;

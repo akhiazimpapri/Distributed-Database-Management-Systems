@@ -1,0 +1,85 @@
+1. Check your container:
+docker ps -a
+
+2. Start Hadoop container
+docker start myHadoop
+
+## create new container
+=>  docker run -p 9870:9870 -p 8088:8088 -it --name=ddbms macio232/hadoop-pseudo-distributed-mode   // here ddbms is container name
+
+3. Access Hadoop container
+docker exec -it myHadoop bash
+
+4. Check Hadoop services
+jps
+
+5. Check HDFS
+hdfs dfs -ls /
+
+6. Go to root directory
+
+cd /root
+
+Check:
+
+ls
+
+You should see:
+
+WordCount.java or empty directory if you haven't created any files yet.
+
+7. In another terminal: (if WordCount.java is not present in the container)
+docker cp "%USERPROFILE%\Desktop\WordCount.java" myHadoop:/root/
+
+8. Compile WordCount.java
+javac -classpath $(hadoop classpath) WordCount.java
+
+ls 
+
+You should see:
+WordCount.java
+WordCount.class
+WordCount$Map.class
+WordCount$Reduce.class
+
+
+9. Create the jar file
+jar -cvf WordCount.jar WordCount*.class
+
+ls
+
+You should see:
+WordCount.jar
+
+10. Create a test input file (inside /root directory of the container)
+
+echo "hello world hello hadoop mapreduce hadoop" > input.txt
+
+cat input.txt - to verify the content of the file.
+
+11. Create input directory in HDFS
+hdfs dfs -ls /
+
+hdfs dfs -rm -r /wordinput
+hdfs dfs -mkdir /wordinput
+
+12. Copy the input file to HDFS
+hdfs dfs -put input.txt /wordinput
+
+verify the file is in HDFS:
+hdfs dfs -ls /wordinput
+
+hdfs dfs -cat /wordinput/input.txt
+
+13. delete output directory in HDFS if it exists
+hdfs dfs -rm -r /wordoutput
+
+
+14. Run the WordCount job
+hadoop jar WordCount.jar WordCount /wordinput /wordoutput
+
+15. Check the output of the job
+hdfs dfs -ls /wordoutput
+
+hdfs dfs -cat /wordoutput/part-00000
+

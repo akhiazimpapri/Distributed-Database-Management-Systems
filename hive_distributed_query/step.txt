@@ -1,0 +1,9 @@
+1. create and run a container
+
+2. create database and tables
+
+3. copy csv/txt files into the container
+
+4. import data from csv/txt files into the database tables
+
+5. perform specific queries

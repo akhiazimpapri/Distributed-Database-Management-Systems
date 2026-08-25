@@ -1,0 +1,56 @@
+//start container
+docker container start -i myHadoop
+
+// create folder, database and table
+create folder
+hive
+create database BankDB
+use BankDB
+create table
+show tables
+(create table commands)
+desc student
+describe formatted student -> show more details about table
+quite   // to exit from hive
+
+
+
+// dataset insertion from windows->linux->Hadoop (open another cmd and do there)
+
+docker cp file_location_in_windows myHadoop:\test     \\myHadoop is my container here
+docker cp D:/files/customer.csv myHadoop:\test
+load data local inpath '/test/customer.csv' into table BankDB.customer (before insert remove column name from csv file)
+
+// TO LOAD data into partitioned table
+1. create a temp table with same structure but without partition
+2. then load dataset data into tmp table
+3. then copy from tmp table to partitioned original table
+->insert overwrite table bankdb.account partition(branch_id) select account_id, customer_id, balance, branch_id from account_tmp
+-> set hive.exec.dynamic.partition=true
+-> set hive.exec.dynamic.partition.mode=nonstrict
+
+->show partitions Account (partition column a je koyta unique value ache sei koyta partition toiry hbee)
+
+// query in partitions
+-> hdfs dfs -ls /BankDB/account // show all partitions as files
+-> select * where branch_id=105 // show data from partition branch_id=105
+-> insert into table bankdb.account
+partition (branch_id=5)
+values(2002,500,56456.55),
+(2222,501,56456.55);
+
+-> drop a partiion , drop korar por repair korte hbe nahole data geleo structure a partition dekhabe
+alter table account
+drop partition(branch_id=105)
+
+msck repair table account // repair 
+-> create a new partition
+->  
+
+
+
+
+// insert manually data if sir asks
+insert into BankDB.customer values(11,'Sadnur', 'a@gmail.com')
+
+

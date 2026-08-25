@@ -25,13 +25,13 @@ public class WordCount {
 
             // Choose ONLY ONE function
 
-        //     wordFrequency(line, output);
-        //     characterFrequency(line, output);
-            wordLengthFrequency(line, output);
-            // lineLengthCount(line, output);
-            // wordsPerLine(line, key, output);
-            // charactersPerLine(line, key, output);
-            // lineCharacterLengthCount(line, output);
+        //     wordFrequency(line, output);//কোন word কতবার আছে
+        //     characterFrequency(line, output);//কোন character কতবার আছে
+            wordLengthFrequency(line, output);//কোন length-এর word কতটি
+            // lineLengthCount(line, output);//একই সংখ্যক word আছে এমন line কতটি
+            // wordsPerLine(line, key, output);//প্রতিটি line-এ কতটি word
+            // charactersPerLine(line, key, output);//প্রতিটি line-এ কতটি character
+            // lineCharacterLengthCount(line, output);//একই সংখ্যক character আছে এমন line কতটি
         }
     }
 
